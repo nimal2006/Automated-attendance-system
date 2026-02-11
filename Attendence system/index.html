@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Automated Attendance System for Rural Schools - Modern, secure, and efficient attendance management"
+    />
+    <title>Automated Attendance System</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-nav">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-face-smile-beam brand-icon"></i>
+          <span class="brand-text">Smart Attendance System</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#workflow">How It Works</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#benefits">Benefits</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <a class="btn btn-outline-light btn-nav" href="#login">Login</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <button
+                class="theme-toggle"
+                id="themeToggle"
+                aria-label="Toggle theme"
+              >
+                <i class="fas fa-sun sun-icon"></i>
+                <i class="fas fa-moon moon-icon"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="hero-bg-animation"></div>
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+      </div>
+      <div class="container hero-content">
+        <div class="row align-items-center min-vh-100">
+          <div class="col-lg-7">
+            <div class="hero-text">
+              <div class="hero-badge" data-aos="fade-down" data-aos-delay="100">
+                <i class="fas fa-shield-halved"></i>
+                <span>Secure & Reliable</span>
+              </div>
+              <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+                <span class="title-gradient">Automated </span>
+                <br />Attendance System <br />For Rural Schools
+              </h1>
+              <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="300">
+                Revolutionizing school attendance with cutting-edge AI
+                technology. Secure, accurate, and effortless tracking for modern
+                educational institutions.
+              </p>
+              <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
+                <a href="#login" class="btn btn-primary btn-hero">
+                  <i class="fas fa-right-to-bracket"></i>
+                  <span>Login</span>
+                </a>
+                <a
+                  href="#dashboard"
+                  class="btn btn-outline-light btn-hero btn-secondary-hero"
+                >
+                  <i class="fas fa-chart-line"></i>
+                  <span>View Dashboard</span>
+                </a>
+              </div>
+              <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
+                <div class="stat-item">
+                  <span class="stat-number" data-count="99.9">0</span>
+                  <span class="stat-suffix">%</span>
+                  <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <span class="stat-number" data-count="500">0</span>
+                  <span class="stat-suffix">+</span>
+                  <span class="stat-label">Schools</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <span class="stat-number" data-count="50">0</span>
+                  <span class="stat-suffix">K+</span>
+                  <span class="stat-label">Students</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 d-none d-lg-block">
+            <div
+              class="hero-illustration"
+              data-aos="zoom-in"
+              data-aos-delay="400"
+            >
+              <div class="illustration-container">
+                <div class="face-scan-animation">
+                  <div class="scan-circle"></div>
+                  <div class="scan-line"></div>
+                  <i class="fas fa-user-large face-icon"></i>
+                  <div class="scan-dots">
+                    <span></span><span></span><span></span> <span></span
+                    ><span></span><span></span> <span></span><span></span
+                    ><span></span>
+                  </div>
+                </div>
+                <div class="status-badge success">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Verified</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <div class="mouse">
+          <div class="wheel"></div>
+        </div>
+        <span>Scroll to explore</span>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+      <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+          <span class="section-badge">Features</span>
+          <h2 class="section-title">
+            Powerful Features for
+            <span class="text-gradient">Modern Schools</span>
+          </h2>
+          <p class="section-subtitle">
+            Comprehensive attendance management powered by advanced facial
+            recognition technology
+          </p>
+        </div>
+
+        <div class="row g-4 mt-4">
+          <!-- Feature Card 1 -->
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="feature-card glass-card">
+              <div class="feature-icon icon-red">
+                <span class="emoji-icon">🔐</span>
+              </div>
+              <h3 class="feature-title">Facial Recognition</h3>
+              <p class="feature-desc">
+                Advanced AI-powered face detection with 99.9% accuracy for
+                foolproof authentication
+              </p>
+              <div class="feature-hover-effect"></div>
+            </div>
+          </div>
+
+          <!-- Feature Card 2 -->
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="feature-card glass-card">
+              <div class="feature-icon icon-green">
+                <span class="emoji-icon">🚪</span>
+              </div>
+              <h3 class="feature-title">IN & OUT Tracking</h3>
+              <p class="feature-desc">
+                Automatic entry/exit logging with smart lock control integration
+              </p>
+              <div class="feature-hover-effect"></div>
+            </div>
+          </div>
+
+          <!-- Feature Card 3 -->
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="feature-card glass-card">
+              <div class="feature-icon icon-purple">
+                <span class="emoji-icon">📅</span>
+              </div>
+              <h3 class="feature-title">Timetable Integration</h3>
+              <p class="feature-desc">
+                Seamless sync with class schedules and break timings for
+                accurate reporting
+              </p>
+              <div class="feature-hover-effect"></div>
+            </div>
+          </div>
+
+          <!-- Feature Card 4 -->
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="feature-card glass-card">
+              <div class="feature-icon icon-orange">
+                <span class="emoji-icon">🔔</span>
+              </div>
+              <h3 class="feature-title">Parent Alerts</h3>
+              <p class="feature-desc">
+                Real-time notifications to parents when their child arrives or
+                leaves school
+              </p>
+              <div class="feature-hover-effect"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section id="workflow" class="workflow-section">
+      <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+          <span class="section-badge">How It Works</span>
+          <h2 class="section-title">
+            Simple Yet <span class="text-gradient">Powerful Workflow</span>
+          </h2>
+          <p class="section-subtitle">
+            From student arrival to parent notification in seconds
+          </p>
+        </div>
+
+        <div class="workflow-container">
+          <div class="workflow-line"></div>
+
+          <div class="row">
+            <!-- Step 1 -->
+            <div
+              class="col-lg col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="workflow-step">
+                <div class="step-number">1</div>
+                <div class="step-icon">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <h4 class="step-title">Student Arrives</h4>
+                <p class="step-desc">Student approaches the attendance kiosk</p>
+              </div>
+            </div>
+
+            <div
+              class="workflow-arrow d-none d-lg-flex"
+              data-aos="fade"
+              data-aos-delay="150"
+            >
+              <i class="fas fa-arrow-right"></i>
+            </div>
+
+            <!-- Step 2 -->
+            <div
+              class="col-lg col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="workflow-step">
+                <div class="step-number">2</div>
+                <div class="step-icon icon-blue">
+                  <i class="fas fa-camera"></i>
+                </div>
+                <h4 class="step-title">Face Captured</h4>
+                <p class="step-desc">
+                  Camera captures and analyzes facial features
+                </p>
+              </div>
+            </div>
+
+            <!-- Step Arrow -->
+            <div
+              class="workflow-arrow d-none d-lg-flex"
+              data-aos="fade"
+              data-aos-delay="250"
+            >
+              <i class="fas fa-arrow-right"></i>
+            </div>
+
+            <!-- Step 3 -->
+            <div
+              class="col-lg col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="workflow-step">
+                <div class="step-number">3</div>
+                <div class="step-icon icon-purple">
+                  <i class="fas fa-server"></i>
+                </div>
+                <h4 class="step-title">Server Verification</h4>
+                <p class="step-desc">AI matches face with database records</p>
+              </div>
+            </div>
+
+            <!-- Step Arrow -->
+            <div
+              class="workflow-arrow d-none d-lg-flex"
+              data-aos="fade"
+              data-aos-delay="350"
+            >
+              <i class="fas fa-arrow-right"></i>
+            </div>
+
+            <!-- Step 4 -->
+            <div
+              class="col-lg col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div class="workflow-step">
+                <div class="step-number">4</div>
+                <div class="step-icon icon-green">
+                  <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h4 class="step-title">Attendance Logged</h4>
+                <p class="step-desc">IN/OUT time recorded automatically</p>
+              </div>
+            </div>
+
+            <!-- Step Arrow -->
+            <div
+              class="workflow-arrow d-none d-lg-flex"
+              data-aos="fade"
+              data-aos-delay="450"
+            >
+              <i class="fas fa-arrow-right"></i>
+            </div>
+
+            <!-- Step 5 -->
+            <div
+              class="col-lg col-md-6"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
+              <div class="workflow-step">
+                <div class="step-number">5</div>
+                <div class="step-icon icon-orange">
+                  <i class="fas fa-mobile-screen-button"></i>
+                </div>
+                <h4 class="step-title">Parent Notified</h4>
+                <p class="step-desc">Instant SMS/App notification sent</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="benefits-image">
+              <div class="benefits-card-stack">
+                <div class="benefit-floating-card card-1">
+                  <i class="fas fa-check-circle" style="color: #1da1f2"></i>
+                  <span>100% Secure</span>
+                </div>
+                <div class="benefit-floating-card card-2">
+                  <i class="fas fa-bolt"></i>
+                  <span>Lightning Fast</span>
+                </div>
+                <div class="benefit-floating-card card-3">
+                  <i class="fas fa-chart-pie"></i>
+                  <span>Smart Analytics</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="benefits-content">
+              <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Benefits</span>
+                <h2 class="section-title">
+                  Why Schools <span class="text-gradient">Love Us</span>
+                </h2>
+              </div>
+
+              <div class="benefits-list">
+                <div
+                  class="benefit-item"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <div class="benefit-icon">
+                    <i class="fas fa-user-slash"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <h4>No Proxy Attendance</h4>
+                    <p>
+                      Biometric facial recognition ensures only the actual
+                      student can mark attendance
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="benefit-item"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <div class="benefit-icon icon-green">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <h4>Reduced Teacher Workload</h4>
+                    <p>
+                      Automated system eliminates manual roll calls and
+                      paperwork
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="benefit-item"
+                  data-aos="fade-up"
+                  data-aos-delay="300"
+                >
+                  <div class="benefit-icon icon-purple">
+                    <i class="fas fa-chart-line" style="color: #1da1f2"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <h4>Accurate Government Reporting</h4>
+                    <p>
+                      Generate compliance reports with precise attendance data
+                      instantly
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="benefit-item"
+                  data-aos="fade-up"
+                  data-aos-delay="400"
+                >
+                  <div class="benefit-icon icon-orange">
+                    <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <h4>Improved Student Discipline</h4>
+                    <p>
+                      Real-time monitoring encourages punctuality and regular
+                      attendance
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card glass-card" data-aos="zoom-in">
+          <div class="row align-items-center">
+            <div class="col-lg-8">
+              <h2 class="cta-title">
+                Ready to Transform Your School's Attendance System?
+              </h2>
+              <p class="cta-subtitle">
+                Join 500+ rural schools already using our Automated Attendance
+                System for smarter attendance management
+              </p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+              <a href="#contact" class="btn btn-primary btn-hero btn-cta">
+                <span>Get Started Today</span>
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-lg-4 mb-4 mb-lg-0"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="footer-brand">
+              <a href="#" class="footer-logo">
+                <i class="fas fa-face-smile-beam brand-icon"></i>
+                <span>Attendance System</span>
+              </a>
+              <p class="footer-desc">
+                Automated Attendance System for Rural Schools. Making attendance
+                management secure, accurate, and effortless.
+              </p>
+            </div>
+          </div>
+          <div
+            class="col-lg-2 col-md-4 mb-4 mb-md-0"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <h5 class="footer-title">Quick Links</h5>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#workflow">How It Works</a></li>
+              <li><a href="#benefits">Benefits</a></li>
+            </ul>
+          </div>
+          <div
+            class="col-lg-2 col-md-4 mb-4 mb-md-0"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <h5 class="footer-title">Resources</h5>
+            <ul class="footer-links">
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">API Reference</a></li>
+              <li><a href="#">Support</a></li>
+              <li><a href="#">FAQs</a></li>
+            </ul>
+          </div>
+          <div
+            class="col-lg-4 col-md-4"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <h5 class="footer-title">Contact Us</h5>
+            <ul class="footer-contact">
+              <li>
+                <i class="fas fa-envelope"></i>
+                <span>contact@attendance-system.edu</span>
+              </li>
+              <li>
+                <i class="fas fa-phone"></i>
+                <span>+91 987654321</span>
+              </li>
+              <li>
+                <i class="fas fa-location-dot"></i>
+                <span>M.kumarasamy college of engineering,Karur</span>
+              </li>
+            </ul>
+            <div class="footer-social">
+              <a href="#" class="social-link"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom" data-aos="fade-up" data-aos-delay="500">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <p class="copyright">
+                © 2026 Attendance System. All rights reserved.
+              </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <ul class="footer-legal">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
