@@ -1,0 +1,6 @@
+{
+  "name": "Tamil Nadu Rural School AI Attendance",
+  "description": "Automated attendance system with Face Recognition simulation and Twilio SMS alerts for rural schools.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["Attendance Tracking", "Face Recognition", "SMS Alerts", "Analytics"]
+}
