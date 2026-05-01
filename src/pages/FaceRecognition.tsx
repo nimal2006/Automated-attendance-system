@@ -13,7 +13,8 @@ import {
   BrainCircuit,
   X,
   CheckCircle2,
-  Loader2
+  Loader2,
+  Upload
 } from 'lucide-react';
 import { api } from '../lib/api';
 import { cn } from '../lib/utils';
@@ -415,13 +416,16 @@ export function FaceRecognition() {
                     <div className="space-y-3">
                       <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-[0.2em] opacity-80">
                         <span>Neural_Confidence</span>
-                        <span className="font-mono text-xs">{match.confidence}%</span>
+                        <div className="flex items-center gap-2">
+                           <BrainCircuit className="w-3 h-3 text-cyan-400" />
+                           <span className="font-mono text-xs text-cyan-400">{match.confidence}%</span>
+                        </div>
                       </div>
                       <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden border border-white/5 relative">
                         <motion.div 
                           initial={{ width: 0 }}
                           animate={{ width: `${match.confidence}%` }}
-                          className="absolute top-0 bottom-0 left-0 bg-white shadow-[0_0_15px_white]"
+                          className="absolute top-0 bottom-0 left-0 bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)] rounded-full"
                         />
                       </div>
                     </div>
@@ -430,15 +434,21 @@ export function FaceRecognition() {
                       <div className="space-y-3">
                         <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-[0.2em] opacity-80">
                           <span>Liveness_Score</span>
-                          <span className="font-mono text-xs">{match.liveness}%</span>
+                          <div className="flex items-center gap-2">
+                            <ShieldCheck className={Number(match.liveness) >= 80 ? "w-3 h-3 text-emerald-400" : "w-3 h-3 text-amber-400"} />
+                            <span className={cn(
+                              "font-mono text-xs",
+                              Number(match.liveness) >= 80 ? "text-emerald-400" : "text-amber-400"
+                            )}>{match.liveness}%</span>
+                          </div>
                         </div>
                         <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden border border-white/5 relative">
                           <motion.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${match.liveness}%` }}
                             className={cn(
-                              "absolute top-0 bottom-0 left-0 shadow-[0_0_15px]",
-                              Number(match.liveness) >= 80 ? "bg-emerald-400 shadow-emerald-400" : "bg-amber-400 shadow-amber-400"
+                              "absolute top-0 bottom-0 left-0 rounded-full",
+                              Number(match.liveness) >= 80 ? "bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.5)]" : "bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.5)]"
                             )}
                           />
                         </div>
@@ -491,8 +501,9 @@ export function FaceRecognition() {
                   key={i} 
                   className="flex items-center gap-5 group py-1"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-slate-950 border border-slate-900 flex items-center justify-center text-cyan-500/30 font-mono text-[9px] font-black group-hover:text-cyan-400 group-hover:border-cyan-500/30 transition-all">
-                    {h.confidence}%
+                  <div className="w-12 h-10 rounded-lg bg-slate-950 border border-slate-900 flex flex-col items-center justify-center font-mono text-[8px] font-black group-hover:border-cyan-500/30 transition-all">
+                    <span className="text-cyan-500/50 group-hover:text-cyan-400 leading-none">{h.confidence}%</span>
+                    {h.liveness && <span className="text-amber-500/50 group-hover:text-amber-400 text-[6px] mt-1 leading-none">LV:{h.liveness}%</span>}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-black text-slate-300 truncate uppercase tracking-wider group-hover:text-white transition-colors">{h.name}</p>
@@ -559,15 +570,47 @@ export function FaceRecognition() {
                       </div>
                     </div>
 
-                    <button 
-                      onClick={() => {
-                        if(!trainingStudentId) alert('Select a student first');
-                        else setTrainingStep('capturing');
-                      }}
-                      className="w-full py-4 bg-cyan-600 text-white rounded-xl font-bold uppercase tracking-widest text-[11px] hover:bg-cyan-500 transition-all"
-                    >
-                      Initialize Acquisition
-                    </button>
+                    <div className="grid grid-cols-2 gap-4">
+                      <button 
+                        onClick={() => {
+                          if(!trainingStudentId) alert('Select a student first');
+                          else setTrainingStep('capturing');
+                        }}
+                        className="w-full py-4 bg-cyan-600 text-white rounded-xl font-bold uppercase tracking-widest text-[11px] hover:bg-cyan-500 transition-all shadow-lg shadow-cyan-900/30"
+                      >
+                        Capture Camera
+                      </button>
+                      
+                      <div className="relative w-full">
+                        <input 
+                          type="file" 
+                          accept="image/*"
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                          title="Upload Reference Image"
+                          onChange={(e) => {
+                            if(!trainingStudentId) {
+                              alert('Select a student first');
+                              e.target.value = '';
+                              return;
+                            }
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = (ev) => {
+                                setCapturedImages([ev.target?.result as string]);
+                                setNumCaptures(1);
+                                setTrainingProgress(100);
+                                setTrainingStep('confirming');
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                        <button className="w-full h-full py-4 bg-slate-800 text-white rounded-xl font-bold uppercase tracking-widest text-[11px] hover:bg-slate-700 transition-all border border-slate-700 flex items-center justify-center gap-2">
+                          Upload Image <Upload className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 )}
 
