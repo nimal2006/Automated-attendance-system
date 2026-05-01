@@ -60,6 +60,7 @@ export const api = {
       student_id?: number; 
       full_name?: string; 
       confidence?: number; 
+      liveness_score?: number;
       error?: string;
       sms_status?: string;
     }>('/face-recognition/verify', {

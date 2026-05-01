@@ -150,17 +150,30 @@ export function FaceRecognition() {
     setMatch(null);
     setOverlayText('ANALYZING FACIAL TOPOLOGY...');
 
+    const frames: string[] = [];
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     const ctx = canvas.getContext('2d');
-    ctx?.drawImage(videoRef.current, 0, 0);
-    const frameBase64 = canvas.toDataURL('image/jpeg');
+    
+    // Capture 3 frames with 300ms interval for liveness detection
+    for(let i = 0; i < 3; i++) {
+        if (ctx && videoRef.current) {
+            ctx.drawImage(videoRef.current, 0, 0);
+            frames.push(canvas.toDataURL('image/jpeg'));
+        }
+        if (i < 2) {
+            setOverlayText(`CAPTURING TEXTURE MAP ${i+1}/3...`);
+            await new Promise(resolve => setTimeout(resolve, 300));
+        }
+    }
+    
+    setOverlayText('VERIFYING LIVENESS & IDENTITY...');
 
     // Real AI Processing Call
     try {
       const resp = await api.verifyFace({
-        frames: [frameBase64],
+        frames: frames,
         location: { lat: 13.0827, lng: 80.2707 }
       });
       
@@ -177,6 +190,7 @@ export function FaceRecognition() {
           name: resp.full_name,
           id: 'ROLL-' + resp.student_id, // Simplified for now
           confidence: (resp.confidence! * 100).toFixed(2),
+          liveness: resp.liveness_score ? (resp.liveness_score * 100).toFixed(2) : undefined,
           time: format(new Date(), 'HH:mm:ss'),
           sms_status: attendResp.sms_status
         };
@@ -397,18 +411,39 @@ export function FaceRecognition() {
                     </div>
                   </div>
 
-                  <div className="bg-black/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 space-y-3">
-                    <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-[0.2em] opacity-80">
-                      <span>Neural_Confidence</span>
-                      <span className="font-mono text-xs">{match.confidence}%</span>
+                  <div className="bg-black/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 space-y-5">
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-[0.2em] opacity-80">
+                        <span>Neural_Confidence</span>
+                        <span className="font-mono text-xs">{match.confidence}%</span>
+                      </div>
+                      <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden border border-white/5 relative">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: `${match.confidence}%` }}
+                          className="absolute top-0 bottom-0 left-0 bg-white shadow-[0_0_15px_white]"
+                        />
+                      </div>
                     </div>
-                    <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden border border-white/5">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${match.confidence}%` }}
-                        className="h-full bg-white shadow-[0_0_15px_white] rounded-full"
-                      />
-                    </div>
+                    
+                    {match.liveness && (
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-[0.2em] opacity-80">
+                          <span>Liveness_Score</span>
+                          <span className="font-mono text-xs">{match.liveness}%</span>
+                        </div>
+                        <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden border border-white/5 relative">
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${match.liveness}%` }}
+                            className={cn(
+                              "absolute top-0 bottom-0 left-0 shadow-[0_0_15px]",
+                              Number(match.liveness) >= 80 ? "bg-emerald-400 shadow-emerald-400" : "bg-amber-400 shadow-amber-400"
+                            )}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="pt-6 border-t border-white/10 flex items-center justify-between text-[9px] font-black tracking-[0.2em] uppercase">
@@ -544,13 +579,42 @@ export function FaceRecognition() {
                     </div>
                     <div className="space-y-4">
                        <h4 className="text-white font-bold uppercase tracking-widest text-lg">Capturing Biometrics</h4>
-                       <div className="bg-slate-900/50 p-3 rounded border border-slate-800">
-                          <p className={cn(
-                            "text-[10px] font-bold uppercase tracking-widest",
-                            trainingQuality.message.includes('Optimal') ? "text-emerald-400" : "text-amber-400"
-                          )}>
-                             {trainingQuality.message}
-                          </p>
+                       <div className="bg-slate-900/50 p-4 rounded border border-slate-800 space-y-3 w-full">
+                          <div className="flex justify-between items-center">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Environment</span>
+                            <span className={cn(
+                              "text-[10px] font-bold uppercase tracking-widest",
+                              trainingQuality.message.includes('Optimal') ? "text-emerald-400" : "text-amber-400"
+                            )}>
+                               {trainingQuality.message}
+                            </span>
+                          </div>
+                          
+                          <div className="space-y-1 text-left">
+                            <div className="flex justify-between items-center text-[8px] text-slate-500 uppercase tracking-widest">
+                              <span>Brightness</span>
+                              <span>{Math.round(trainingQuality.brightness)}</span>
+                            </div>
+                            <div className="w-full h-1 bg-slate-950 rounded-full overflow-hidden">
+                              <motion.div 
+                                className={cn("h-full", trainingQuality.brightness > 60 && trainingQuality.brightness < 220 ? "bg-emerald-500" : "bg-amber-500")}
+                                animate={{ width: `${Math.min((trainingQuality.brightness / 255) * 100, 100)}%` }}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-1 text-left">
+                            <div className="flex justify-between items-center text-[8px] text-slate-500 uppercase tracking-widest">
+                              <span>Motion Stability</span>
+                              <span>Score: {Math.round(trainingQuality.blur)}</span>
+                            </div>
+                            <div className="w-full h-1 bg-slate-950 rounded-full overflow-hidden flex flex-row-reverse">
+                              <motion.div 
+                                className={cn("h-full", trainingQuality.blur >= 10 ? "bg-emerald-500" : "bg-amber-500")}
+                                animate={{ width: `${Math.min((trainingQuality.blur / 30) * 100, 100)}%` }}
+                              />
+                            </div>
+                          </div>
                        </div>
                        <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Progress: {capturedImages.length} / {numCaptures}</p>
                     </div>
